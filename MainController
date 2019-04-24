@@ -1,0 +1,103 @@
+package com.devcolibri.mavenjavafxapp.controller;
+
+import ClassSkripts.ALogintest;
+import ClassSkripts.DCheckCOO;
+import ClassSkripts.ECheckGPP;
+import ClassSkripts.GCheckSmeTpGpp;
+import SearchScripts.CSearchTests;
+import SearchScripts.FSearchTestsFizLica;
+import SearchScripts.HmenaTP;
+import com.codeborne.selenide.Configuration;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
+import org.junit.Test;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class MainController implements Initializable {
+
+
+    @FXML private ListView listView;
+    @FXML public TextArea golfTextArea;
+
+public void listViewButtonPushed()
+{
+
+    String textAreaString ="";
+
+    ObservableList listOfItems = listView.getSelectionModel().getSelectedItems();
+    for (Object item : listOfItems)
+    {
+        textAreaString += String.format("%s%n",(String) item);
+    }
+this.golfTextArea.setText(textAreaString);
+
+
+}
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    String s = "Unitest2";
+    String n = "S1uninew";
+
+           listView.getItems().addAll(s,n);
+           listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+    @Test
+    public  void ECheckGPP() {
+
+        Configuration.browser = "firefox";                                                                              //Задать нужный браузер (по умолчанию Chrome)
+        Configuration.timeout = 50000;
+        ALogintest.LoginTest();
+        ECheckGPP.Checkgpp();
+
+        //Прогон  формы поиска для физиков
+        FSearchTestsFizLica.searchtestsfizlica();
+    }
+
+    @Test
+    public void DCheckCoo() {
+        Configuration.browser = "firefox";                                                                              //Задать нужный браузер (по умолчанию Chrome)
+        Configuration.timeout = 50000;
+        ALogintest.LoginTest();
+        DCheckCOO.CheckCoo();
+        //Прогон  формы поиска для Юриков
+        CSearchTests.searchtests();
+    }
+
+    @Test
+    public void GCheckSmeTpGpp() {
+        Configuration.browser = "firefox";                                                                              //Задать нужный браузер (по умолчанию Chrome)
+        Configuration.timeout = 50000;
+        ALogintest.LoginTest();
+        GCheckSmeTpGpp.CheckTpSme();
+        //Прогон  формы поиска для физиков
+        HmenaTP.smenat();
+    }
+
+
+
+
+    }
+
+
+
+
+
